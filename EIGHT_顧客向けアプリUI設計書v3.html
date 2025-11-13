@@ -1,0 +1,3033 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIGHT 顧客向けアプリ UI設計書</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 4px solid #000000;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            padding-left: 15px;
+            border-left: 5px solid #000000;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        h4 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .metadata {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .metadata p {
+            margin: 8px 0;
+        }
+        
+        .metadata strong {
+            color: #2c3e50;
+            display: inline-block;
+            width: 120px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .screen-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .wireframe {
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+        }
+        
+        .phone-frame {
+            width: 375px;
+            margin: 20px auto;
+            border: 3px solid #333;
+            border-radius: 30px;
+            padding: 50px 15px 50px 15px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: #333;
+            border-radius: 3px;
+        }
+        
+        .screen-header {
+            background: #000000;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            letter-spacing: 0.5px;
+        }
+        
+        .screen-body {
+            padding: 20px;
+            background: #fff;
+            min-height: 400px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #000000;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            margin: 5px;
+            font-weight: 600;
+        }
+        
+        .button-secondary {
+            background: #666666;
+        }
+        
+        .button-danger {
+            background: #e74c3c;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .tab-bar {
+            display: flex;
+            background: #000000;
+            justify-content: space-around;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        
+        .tab-item {
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.85em;
+        }
+        
+        .flow-diagram {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            background: #000000;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px;
+            font-weight: 600;
+        }
+        
+        .flow-arrow {
+            font-size: 2em;
+            color: #000000;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .requirement {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .label {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .label-required {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .label-optional {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .label-info {
+            background: #000000;
+            color: white;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 EIGHT 顧客向けアプリ UI設計書</h1>
+        
+        <div class="metadata">
+            <p><strong>プロジェクト名:</strong> パーソナルジムCRMデジタル化プロジェクト</p>
+            <p><strong>ドキュメント種別:</strong> UI設計書（顧客向けアプリ）</p>
+            <p><strong>作成日:</strong> 2025年11月7日</p>
+            <p><strong>バージョン:</strong> 3.0（全16画面対応・記録機能拡充版）</p>
+            <p><strong>対象プラットフォーム:</strong> Zoho Creator（モバイルWeb/iOS/Android）</p>
+        </div>
+
+        <h2>📋 1. ドキュメント概要</h2>
+        
+        <h3>1.1 目的</h3>
+        <p>本ドキュメントは、パーソナルジム「EIGHT」の顧客向けモバイルアプリケーションのUI設計を定義します。顧客が直感的に予約・記録・レポート閲覧を行える使いやすいインターフェースを実現することを目的とします。</p>
+        
+        <h3>1.2 対象読者</h3>
+        <ul>
+            <li>プロジェクトオーナー（佐伯様）</li>
+            <li>システム構築・実装者（渡久地様）</li>
+            <li>相談役（齋藤様）</li>
+            <li>開発・デザインチーム</li>
+        </ul>
+        
+        <h3>1.3 アプリの主要機能</h3>
+        <div class="requirement">
+            <strong>顧客向けアプリの4つのコア機能：</strong>
+            <ol>
+                <li><strong>予約機能</strong> - トレーニング・整体の予約登録・変更・キャンセル（カレンダーベース）</li>
+                <li><strong>記録機能</strong> - 体調記録・食事記録・個人トレーニング記録・カウンセリングシート</li>
+                <li><strong>レポート機能</strong> - トレーニング履歴・整体履歴・Inbody・食事履歴・体調変化の閲覧</li>
+                <li><strong>レポート一覧（ハブ）</strong> - 全レポート・記録機能へのアクセスと主要指標のサマリー表示</li>
+            </ol>
+        </div>
+
+        <h2>📐 2. UI設計の基本方針</h2>
+        
+        <h3>2.1 デザインコンセプト</h3>
+        <table>
+            <tr>
+                <th>項目</th>
+                <th>方針</th>
+            </tr>
+            <tr>
+                <td><strong>シンプル・直感的</strong></td>
+                <td>ジムや整体利用後でも疲れた状態で操作できる、シンプルで分かりやすいUI</td>
+            </tr>
+            <tr>
+                <td><strong>モバイルファースト</strong></td>
+                <td>スマートフォンでの操作を最優先に設計（片手操作を考慮）</td>
+            </tr>
+            <tr>
+                <td><strong>視認性の高さ</strong></td>
+                <td>大きめのタップエリア、読みやすいフォントサイズ（最小14px）</td>
+            </tr>
+            <tr>
+                <td><strong>一貫性</strong></td>
+                <td>全画面で統一されたナビゲーション・色使い・ボタン配置</td>
+            </tr>
+            <tr>
+                <td><strong>フィードバックの明確化</strong></td>
+                <td>操作に対する成功・エラーメッセージを明確に表示</td>
+            </tr>
+        </table>
+        
+        <h3>2.2 カラースキーム（EIGHTロゴベース）</h3>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAAAsTAAALEwEAmpwYAAAGF2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDIgNzkuMTY0MzYwLCAyMDIwLzAyLzEzLTAxOjA3OjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjEuMSAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMjUtMTEtMDdUMTQ6MzA6MDBaIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyNS0xMS0wN1QxNDozMDowMFoiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjUtMTEtMDdUMTQ6MzA6MDBaIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmE4NmI0ZjA5LTBhODgtNDg5Yy04YzI3LTYxMzQwOGI1YjQwYSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDphODZiNGYwOS0wYTg4LTQ4OWMtOGMyNy02MTM0MDhiNWI0MGEiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDphODZiNGYwOS0wYTg4LTQ4OWMtOGMyNy02MTM0MDhiNWI0MGEiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmE4NmI0ZjA5LTBhODgtNDg5Yy04YzI3LTYxMzQwOGI1YjQwYSIgc3RFdnQ6d2hlbj0iMjAyNS0xMS0wN1QxNDozMDowMFoiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMS4xIChNYWNpbnRvc2gpIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg==" alt="EIGHT Logo" style="max-width: 150px; margin: 20px auto; display: block;">
+        </div>
+        <table>
+            <tr>
+                <th>用途</th>
+                <th>カラー</th>
+                <th>説明</th>
+            </tr>
+            <tr>
+                <td>プライマリ</td>
+                <td style="background: #000000; color: white;">#000000</td>
+                <td>メインアクション、ヘッダー、ボタン</td>
+            </tr>
+            <tr>
+                <td>セカンダリ</td>
+                <td style="background: #333333; color: white;">#333333</td>
+                <td>ナビゲーション、サブ要素</td>
+            </tr>
+            <tr>
+                <td>アクセント（濃）</td>
+                <td style="background: #666666; color: white;">#666666</td>
+                <td>選択状態、ホバー効果</td>
+            </tr>
+            <tr>
+                <td>アクセント（薄）</td>
+                <td style="background: #999999; color: white;">#999999</td>
+                <td>無効状態、補足テキスト</td>
+            </tr>
+            <tr>
+                <td>成功</td>
+                <td style="background: #2ecc71; color: white;">#2ecc71</td>
+                <td>成功メッセージ、完了状態</td>
+            </tr>
+            <tr>
+                <td>警告</td>
+                <td style="background: #f39c12; color: white;">#f39c12</td>
+                <td>注意喚起、確認メッセージ</td>
+            </tr>
+            <tr>
+                <td>危険</td>
+                <td style="background: #e74c3c; color: white;">#e74c3c</td>
+                <td>キャンセル、削除アクション</td>
+            </tr>
+            <tr>
+                <td>背景</td>
+                <td style="background: #f5f5f5;">#f5f5f5</td>
+                <td>アプリ背景</td>
+            </tr>
+            <tr>
+                <td>カード背景</td>
+                <td style="background: #ffffff; border: 1px solid #e0e0e0;">#ffffff</td>
+                <td>カード、入力フィールド</td>
+            </tr>
+        </table>
+        <div class="note">
+            <strong>🎨 デザインコンセプト：</strong> EIGHTロゴのモノトーンを基調とした、シャープで洗練された印象。黒を効果的に使用し、プロフェッショナルなフィットネスブランドを表現します。
+        </div>
+
+        <h2>🗺️ 3. 画面構成一覧</h2>
+        
+        <table>
+            <tr>
+                <th>画面ID</th>
+                <th>画面名</th>
+                <th>カテゴリ</th>
+                <th>説明</th>
+            </tr>
+            <tr>
+                <td>S-01</td>
+                <td>ログイン画面</td>
+                <td>認証</td>
+                <td>顧客がアプリにログインする画面</td>
+            </tr>
+            <tr>
+                <td>S-02</td>
+                <td>ホーム画面（予約メイン）</td>
+                <td>予約</td>
+                <td>カレンダーから予約作成、今後の予約確認可能</td>
+            </tr>
+            <tr>
+                <td>S-03</td>
+                <td>予約一覧画面</td>
+                <td>予約</td>
+                <td>今後の予約と過去の予約を表示（ホームからアクセス）</td>
+            </tr>
+            <tr>
+                <td>S-04</td>
+                <td>予約確認画面</td>
+                <td>予約</td>
+                <td>予約内容の最終確認と登録</td>
+            </tr>
+            <tr>
+                <td>S-05</td>
+                <td>予約詳細画面</td>
+                <td>予約</td>
+                <td>予約の詳細確認・変更・キャンセル</td>
+            </tr>
+            <tr>
+                <td>S-06</td>
+                <td>体調記録入力画面</td>
+                <td>記録</td>
+                <td>日々の体調を記録する画面</td>
+            </tr>
+            <tr>
+                <td>S-07</td>
+                <td>食事記録入力画面</td>
+                <td>記録</td>
+                <td>食事した内容を記録する画面</td>
+            </tr>
+            <tr>
+                <td>S-08</td>
+                <td>個人トレーニング入力画面</td>
+                <td>記録</td>
+                <td>個人で実施したトレーニング内容（ヨガ、整体、トレーニングなど）を記録</td>
+            </tr>
+            <tr>
+                <td>S-09</td>
+                <td>カウンセリングシート画面</td>
+                <td>記録</td>
+                <td>初回のみカウンセリング情報の入力</td>
+            </tr>
+            <tr>
+                <td>S-10</td>
+                <td>レポート一覧画面</td>
+                <td>レポート</td>
+                <td>各レポートへのナビゲーションと簡単な概要レポートを表示</td>
+            </tr>
+            <tr>
+                <td>S-11</td>
+                <td>トレーニング履歴画面</td>
+                <td>レポート</td>
+                <td>過去のトレーニング記録を閲覧</td>
+            </tr>
+            <tr>
+                <td>S-12</td>
+                <td>整体履歴画面</td>
+                <td>レポート</td>
+                <td>過去の整体記録を閲覧</td>
+            </tr>
+            <tr>
+                <td>S-13</td>
+                <td>Inbodyレポート画面</td>
+                <td>レポート</td>
+                <td>体組成データの推移を表示</td>
+            </tr>
+            <tr>
+                <td>S-14</td>
+                <td>食事履歴画面</td>
+                <td>レポート</td>
+                <td>食事内容を振り返り可能</td>
+            </tr>
+            <tr>
+                <td>S-15</td>
+                <td>体調変化グラフ画面</td>
+                <td>レポート</td>
+                <td>体調記録の推移をグラフで表示</td>
+            </tr>
+            <tr>
+                <td>S-16</td>
+                <td>プロフィール画面</td>
+                <td>設定</td>
+                <td>顧客情報の閲覧・編集</td>
+            </tr>
+        </table>
+        
+        <div class="note">
+            <strong>📌 ナビゲーション構成：</strong>
+            <p>ボトムナビゲーションは<strong>3タブ</strong>構成：</p>
+            <ul>
+                <li><strong>🏠 ホーム（予約メイン）</strong> - カレンダーから予約作成、今後の予約確認（S-02）</li>
+                <li><strong>📊 レポート</strong> - レポート一覧画面（S-10）から各レポートへアクセス</li>
+                <li><strong>👤 マイページ</strong> - プロフィール、設定、ログアウト（S-16）</li>
+            </ul>
+            <p><strong>記録機能へのアクセス：</strong>レポート一覧画面（S-10）またはホーム画面から体調記録・食事記録・個人トレーニング記録へアクセスします。</p>
+        </div>
+
+        <h2>🔄 4. 画面遷移図</h2>
+        
+        <div class="flow-diagram">
+            <h3>メイン画面遷移フロー</h3>
+            <div style="text-align: center; padding: 20px;">
+                <div class="flow-step" style="background: #000;">ログイン (S-01)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step" style="background: #000;">ホーム画面（予約メイン） (S-02)</div>
+                <br><br>
+                
+                <div style="margin: 20px 0;">
+                    <strong style="font-size: 1.1em;">【ホーム画面からの主要遷移】</strong>
+                </div>
+                
+                <div style="display: inline-block; vertical-align: top; margin: 20px;">
+                    <div class="flow-step" style="background: #333;">予約作成フロー</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #666;">日付・メニュー・時間選択</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #666;">予約確認 (S-04)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #2ecc71; color: white;">予約完了</div>
+                </div>
+                
+                <div style="display: inline-block; vertical-align: top; margin: 20px;">
+                    <div class="flow-step" style="background: #333;">予約管理フロー</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #666;">「すべて見る」タップ</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #666;">予約一覧 (S-03)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #666;">予約詳細 (S-05)</div>
+                </div>
+                
+                <br><br>
+                
+                <div style="margin: 20px 0;">
+                    <strong style="font-size: 1.1em;">【ボトムナビゲーション（3タブ）】</strong>
+                </div>
+                
+                <div style="display: inline-block; margin: 10px;">
+                    <div class="flow-step" style="background: #000;">ホーム (S-02)</div>
+                </div>
+                <div style="display: inline-block; margin: 10px;">
+                    <div class="flow-step" style="background: #000;">レポート一覧 (S-10)</div>
+                    <div class="flow-arrow" style="font-size: 1.5em;">↓</div>
+                    <div style="font-size: 0.9em; margin-top: 10px;">
+                        S-11/S-12/S-13/S-14/S-15へ遷移
+                    </div>
+                </div>
+                <div style="display: inline-block; margin: 10px;">
+                    <div class="flow-step" style="background: #000;">マイページ (S-16)</div>
+                </div>
+                
+                <br><br>
+                
+                <div style="margin: 20px 0;">
+                    <strong style="font-size: 1.1em;">【記録機能フロー】</strong>
+                </div>
+                
+                <div style="display: inline-block; vertical-align: top; margin: 15px;">
+                    <div class="flow-step" style="background: #333;">レポート一覧 (S-10)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #666;">体調記録 (S-06)</div>
+                </div>
+                
+                <div style="display: inline-block; vertical-align: top; margin: 15px;">
+                    <div class="flow-step" style="background: #333;">レポート一覧 (S-10)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #666;">食事記録 (S-07)</div>
+                </div>
+                
+                <div style="display: inline-block; vertical-align: top; margin: 15px;">
+                    <div class="flow-step" style="background: #333;">レポート一覧 (S-10)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #666;">個人トレーニング (S-08)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <strong>📌 画面遷移の特徴：</strong>
+            <ul>
+                <li><strong>予約作成：</strong>ホーム画面で完結（S-02 → S-04）- 最短2画面で予約完了</li>
+                <li><strong>予約管理：</strong>ホーム画面の「すべて見る」から予約一覧（S-03）へアクセス</li>
+                <li><strong>レポート一覧がハブ：</strong>S-10から各レポート・記録機能へアクセス</li>
+                <li><strong>3タブナビゲーション：</strong>ホーム・レポート一覧・マイページの3つで主要機能にアクセス</li>
+            </ul>
+        </div>
+
+        <h2>📱 5. 詳細画面設計</h2>
+
+        <!-- ログイン画面 -->
+        <div class="screen-section">
+            <h3>S-01: ログイン画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>顧客がアプリにアクセスするための認証画面。セキュアかつシンプルなログイン体験を提供します。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div style="text-align: center; padding: 60px 20px 40px 20px; background: #000000; margin: -50px -15px 20px -15px; border-radius: 30px 30px 0 0;">
+                        <div style="color: white; font-size: 3em; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px;">EIGHT</div>
+                        <div style="color: #999; font-size: 0.9em; letter-spacing: 1px;">PERSONAL TRAINING</div>
+                    </div>
+                    
+                    <div style="padding: 0 20px;">
+                        <div class="input-field" style="text-align: left; color: #999;">
+                            メールアドレス
+                        </div>
+                        <div class="input-field" style="text-align: left; color: #999;">
+                            パスワード
+                        </div>
+                        
+                        <div style="text-align: right; margin: 10px 0;">
+                            <a href="#" style="color: #666; font-size: 0.9em; text-decoration: none;">パスワードを忘れた方</a>
+                        </div>
+                        
+                        <div class="button" style="width: 100%; margin-top: 30px; background: #000;">
+                            ログイン
+                        </div>
+                        
+                        <div style="margin-top: 30px; font-size: 0.9em; color: #7f8c8d; text-align: center;">
+                            初めての方は店舗スタッフにお問い合わせください
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>種類</th>
+                    <th>必須/任意</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>ロゴ</td>
+                    <td>画像</td>
+                    <td>-</td>
+                    <td>EIGHTのブランドロゴ</td>
+                </tr>
+                <tr>
+                    <td>メールアドレス</td>
+                    <td>テキスト入力</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>顧客のメールアドレス（CRM登録済み）</td>
+                </tr>
+                <tr>
+                    <td>パスワード</td>
+                    <td>パスワード入力</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>マスク表示、最小8文字</td>
+                </tr>
+                <tr>
+                    <td>ログインボタン</td>
+                    <td>ボタン</td>
+                    <td>-</td>
+                    <td>認証処理を実行</td>
+                </tr>
+                <tr>
+                    <td>パスワード再設定リンク</td>
+                    <td>リンク</td>
+                    <td>-</td>
+                    <td>パスワードリセットフローへ遷移</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <strong>⚠ 注意事項：</strong>
+                <ul>
+                    <li>ログイン失敗時は「メールアドレスまたはパスワードが正しくありません」と表示</li>
+                    <li>3回連続失敗で5分間ロック（セキュリティ対策）</li>
+                    <li>初回ログイン時はパスワード変更を促す</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ホーム画面 -->
+        <div class="screen-section">
+            <h3>S-02: ホーム画面（予約メイン画面）</h3>
+            
+            <h4>画面の目的</h4>
+            <p>アプリのメインハブとして、カレンダーから直感的に予約日時を選択できる画面です。予約の作成・確認を最短ステップで完了できることを重視しています。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000000;">
+                        <span style="font-weight: bold; letter-spacing: 1px;">EIGHT</span>
+                        <span>🔔</span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="padding: 10px 0;">
+                            <strong style="font-size: 1.1em;">予約する</strong>
+                        </div>
+                        
+                        <!-- カレンダー -->
+                        <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <button style="background: none; border: none; font-size: 1.2em;">‹</button>
+                                <strong style="font-size: 1.1em;">2025年11月</strong>
+                                <button style="background: none; border: none; font-size: 1.2em;">›</button>
+                            </div>
+                            
+                            <!-- 曜日ヘッダー -->
+                            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; font-size: 0.8em; color: #666; margin-bottom: 8px;">
+                                <div>日</div>
+                                <div>月</div>
+                                <div>火</div>
+                                <div>水</div>
+                                <div>木</div>
+                                <div>金</div>
+                                <div>土</div>
+                            </div>
+                            
+                            <!-- カレンダーグリッド -->
+                            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center;">
+                                <div style="padding: 10px; color: #ccc;">27</div>
+                                <div style="padding: 10px; color: #ccc;">28</div>
+                                <div style="padding: 10px; color: #ccc;">29</div>
+                                <div style="padding: 10px; color: #ccc;">30</div>
+                                <div style="padding: 10px; color: #ccc;">31</div>
+                                <div style="padding: 10px;">1</div>
+                                <div style="padding: 10px;">2</div>
+                                <div style="padding: 10px;">3</div>
+                                <div style="padding: 10px;">4</div>
+                                <div style="padding: 10px;">5</div>
+                                <div style="padding: 10px;">6</div>
+                                <div style="padding: 10px; background: #f0f0f0; border-radius: 50%;">7</div>
+                                <div style="padding: 10px; background: #000; color: white; border-radius: 50%; font-weight: bold;">8</div>
+                                <div style="padding: 10px;">9</div>
+                                <div style="padding: 10px;">10</div>
+                                <div style="padding: 10px;">11</div>
+                                <div style="padding: 10px;">12</div>
+                                <div style="padding: 10px;">13</div>
+                                <div style="padding: 10px;">14</div>
+                                <div style="padding: 10px;">15</div>
+                            </div>
+                        </div>
+                        
+                        <!-- メニュー選択 -->
+                        <div style="margin-bottom: 20px;">
+                            <div style="font-weight: 600; margin-bottom: 10px; font-size: 0.95em;">メニュー</div>
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1; padding: 12px; background: #000; color: white; border-radius: 8px; text-align: center; font-size: 0.9em; font-weight: 600;">
+                                    トレーニング
+                                </div>
+                                <div style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    整体
+                                </div>
+                                <div style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    測定
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 時間帯選択 -->
+                        <div style="margin-bottom: 20px;">
+                            <div style="font-weight: 600; margin-bottom: 10px; font-size: 0.95em;">11月8日（金）の空き時間</div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                                <div style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    09:00
+                                </div>
+                                <div style="padding: 12px; background: #000; color: white; border-radius: 8px; text-align: center; font-size: 0.9em; font-weight: 600;">
+                                    10:00
+                                </div>
+                                <div style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    11:00
+                                </div>
+                                <div style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    14:00
+                                </div>
+                                <div style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    15:00
+                                </div>
+                                <div style="padding: 12px; background: #f0f0f0; color: #999; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    16:00<br><span style="font-size: 0.75em;">満</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 予約ボタン -->
+                        <div style="margin-bottom: 30px;">
+                            <div style="background: #000; color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 1.05em;">
+                                この時間で予約する
+                            </div>
+                        </div>
+                        
+                        <!-- 今後の予約 -->
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; font-size: 1em;">今後の予約</h4>
+                                <a href="#" style="color: #000; text-decoration: none; font-size: 0.9em; font-weight: 600;">すべて見る ›</a>
+                            </div>
+                            
+                            <div class="card" style="border-left: 4px solid #000;">
+                                <div style="display: flex; justify-content: space-between; align-items: start;">
+                                    <div>
+                                        <div style="font-weight: bold; font-size: 1.05em;">11月15日（金）</div>
+                                        <div style="color: #666; margin: 5px 0; font-size: 0.9em;">14:00 - 15:00</div>
+                                        <div style="font-weight: 600; font-size: 0.95em;">整体・ボディケア</div>
+                                    </div>
+                                    <div style="background: #2ecc71; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.85em;">
+                                        確定
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-bar" style="background: #000;">
+                        <div class="tab-item" style="opacity: 1;">🏠<br><span style="font-size: 0.8em;">ホーム</span></div>
+                        <div class="tab-item" style="opacity: 0.5;">📊<br><span style="font-size: 0.8em;">レポート</span></div>
+                        <div class="tab-item" style="opacity: 0.5;">👤<br><span style="font-size: 0.8em;">マイページ</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                    <th>アクション</th>
+                </tr>
+                <tr>
+                    <td>通知アイコン</td>
+                    <td>新着通知の有無を表示（赤バッジ）</td>
+                    <td>タップで通知一覧へ</td>
+                </tr>
+                <tr>
+                    <td>月次カレンダー</td>
+                    <td>月ごとの日付を表示、予約可能日を選択可能</td>
+                    <td>日付タップで時間帯表示を更新</td>
+                </tr>
+                <tr>
+                    <td>前月/次月ボタン</td>
+                    <td>カレンダーの月を切り替え</td>
+                    <td>タップで前月/次月へ移動</td>
+                </tr>
+                <tr>
+                    <td>日付セル</td>
+                    <td>当日（グレー）、選択日（黒背景）、過去日（薄グレー）、予約不可日（薄グレー）</td>
+                    <td>タップで日付選択</td>
+                </tr>
+                <tr>
+                    <td>メニュー選択タブ</td>
+                    <td>トレーニング / 整体 / 測定（Inbody）から選択</td>
+                    <td>タップでメニュー切り替え、空き時間を再取得</td>
+                </tr>
+                <tr>
+                    <td>時間帯グリッド</td>
+                    <td>選択日の空き時間を30分刻みで表示</td>
+                    <td>タップで時間帯選択（黒背景で選択状態表示）</td>
+                </tr>
+                <tr>
+                    <td>満席表示</td>
+                    <td>予約済み時間はグレーアウト表示</td>
+                    <td>選択不可</td>
+                </tr>
+                <tr>
+                    <td>予約ボタン</td>
+                    <td>日付・メニュー・時間選択後に有効化</td>
+                    <td>タップで予約確認画面（S-04のステップ③）へ</td>
+                </tr>
+                <tr>
+                    <td>今後の予約カード</td>
+                    <td>直近2件の予約を表示</td>
+                    <td>タップで予約詳細(S-05)へ、「すべて見る」で予約一覧(S-03)へ</td>
+                </tr>
+            </table>
+            
+            <h4>操作フロー</h4>
+            <div class="flow-diagram">
+                <div style="text-align: center;">
+                    <div class="flow-step" style="background: #000;">① カレンダーで日付選択</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #333;">② メニュー選択</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #333;">③ 時間帯選択</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #000;">④「予約する」タップ</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step" style="background: #2ecc71; color: white;">予約確認 → 完了</div>
+                </div>
+            </div>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMから予約可能日・予約可能時間・トレーナースケジュールを取得</li>
+                    <li>選択した日付・メニューに応じて空き時間をリアルタイム表示</li>
+                    <li>今後の予約2件をCRMから取得して表示</li>
+                    <li>予約ボタン押下時に確認画面を経て予約をCRMへ登録</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>🎨 UX設計のポイント：</strong>
+                <ul>
+                    <li><strong>最短3タップで予約完了：</strong>日付 → メニュー → 時間 → 予約ボタン</li>
+                    <li><strong>視覚的なフィードバック：</strong>選択状態を黒背景で明確に表示</li>
+                    <li><strong>予約可否の明確化：</strong>グレーアウトで予約不可を視覚的に表現</li>
+                    <li><strong>カレンダーの直感性：</strong>月次ビューで予約可能日を一目で把握</li>
+                    <li><strong>既存予約の確認：</strong>画面下部で今後の予約を常に確認可能</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 予約一覧画面 -->
+        <div class="screen-section">
+            <h3>S-03: 予約一覧画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>今後の予約と過去の予約を確認し、予約詳細への遷移を行う画面です。ホーム画面の「すべて見る」からアクセスします。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000;">
+                        <span>← 予約一覧</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="display: flex; background: #f0f0f0; border-radius: 5px; padding: 3px; margin-bottom: 20px;">
+                            <div style="flex: 1; background: #000; color: white; padding: 10px; text-align: center; border-radius: 3px; font-weight: 600;">今後の予約</div>
+                            <div style="flex: 1; padding: 10px; text-align: center; color: #999;">過去の予約</div>
+                        </div>
+                        
+                        <div class="card" style="border-left: 4px solid #000;">
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.1em;">11月8日（金）</div>
+                                    <div style="color: #666; margin: 5px 0;">10:00 - 11:00</div>
+                                    <div style="font-weight: 600;">パーソナルトレーニング</div>
+                                </div>
+                                <div style="background: #2ecc71; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.85em;">
+                                    確定
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card" style="border-left: 4px solid #000;">
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.1em;">11月15日（金）</div>
+                                    <div style="color: #666; margin: 5px 0;">14:00 - 15:00</div>
+                                    <div style="font-weight: 600;">整体・ボディケア</div>
+                                </div>
+                                <div style="background: #2ecc71; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.85em;">
+                                    確定
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card" style="border-left: 4px solid #000;">
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.1em;">11月22日（金）</div>
+                                    <div style="color: #666; margin: 5px 0;">10:00 - 11:00</div>
+                                    <div style="font-weight: 600;">パーソナルトレーニング</div>
+                                </div>
+                                <div style="background: #f39c12; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.85em;">
+                                    仮予約
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-bar" style="background: #000;">
+                        <div class="tab-item" style="opacity: 1;">🏠<br><span style="font-size: 0.8em;">ホーム</span></div>
+                        <div class="tab-item" style="opacity: 0.5;">📊<br><span style="font-size: 0.8em;">レポート</span></div>
+                        <div class="tab-item" style="opacity: 0.5;">👤<br><span style="font-size: 0.8em;">マイページ</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                    <th>アクション</th>
+                </tr>
+                <tr>
+                    <td>タブ切り替え</td>
+                    <td>「今後の予約」「過去の予約」を切り替え</td>
+                    <td>タップで表示切替</td>
+                </tr>
+                <tr>
+                    <td>予約カード</td>
+                    <td>日時・メニュー・ステータスを表示</td>
+                    <td>タップで予約詳細(S-05)へ</td>
+                </tr>
+                <tr>
+                    <td>ステータスバッジ</td>
+                    <td>確定(緑)、仮予約(オレンジ)、キャンセル(灰)</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <strong>📌 表示ルール：</strong>
+                <ul>
+                    <li>今後の予約：現在時刻以降の予約を日時順（昇順）で表示</li>
+                    <li>過去の予約：現在時刻以前の予約を日時順（降順）で表示、直近30件まで</li>
+                    <li>予約がない場合は「予約がありません」と表示し、ホーム画面へ戻るボタンを表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 予約確認画面 -->
+        <div class="screen-section">
+            <h3>S-04: 予約確認画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>ホーム画面で選択した予約内容を最終確認し、予約を確定する画面です。必要に応じて担当者や備考を追加できます。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000;">
+                        <span>← 予約確認</span>
+                        <span>✕</span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 2px solid #000;">
+                            <h4 style="margin-bottom: 15px; font-size: 1.1em;">予約内容</h4>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <div style="color: #666; font-size: 0.9em; margin-bottom: 5px;">日時</div>
+                                <div style="font-weight: bold; font-size: 1.15em;">11月8日（金）10:00 - 11:00</div>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <div style="color: #666; font-size: 0.9em; margin-bottom: 5px;">メニュー</div>
+                                <div style="font-weight: bold; font-size: 1.05em;">パーソナルトレーニング（60分）</div>
+                            </div>
+                            
+                            <div>
+                                <div style="color: #666; font-size: 0.9em; margin-bottom: 5px;">料金</div>
+                                <div style="font-weight: bold; font-size: 1.05em;">¥8,000</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                担当トレーナー <span style="color: #999; font-weight: normal; font-size: 0.9em;">（任意）</span>
+                            </label>
+                            <select class="input-field" style="width: 100%;">
+                                <option>希望なし（自動割当）</option>
+                                <option>田中 健太</option>
+                                <option>佐藤 美咲</option>
+                                <option>鈴木 大輔</option>
+                            </select>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                備考 <span style="color: #999; font-weight: normal; font-size: 0.9em;">（任意）</span>
+                            </label>
+                            <textarea class="input-field" placeholder="要望や相談事項があれば記入してください" style="min-height: 100px; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-bottom: 25px; font-size: 0.9em;">
+                            <strong>⚠ キャンセルポリシー</strong><br>
+                            前日まで：無料<br>
+                            当日：料金の50%
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <div style="background: #000; color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 1.05em;">
+                                予約を確定する
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>項目</th>
+                    <th>種類</th>
+                    <th>必須/任意</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>予約内容サマリ</td>
+                    <td>表示項目</td>
+                    <td>-</td>
+                    <td>ホーム画面で選択した日時・メニュー・料金を表示</td>
+                </tr>
+                <tr>
+                    <td>担当トレーナー</td>
+                    <td>ドロップダウン</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>希望があれば選択、なければ自動割当</td>
+                </tr>
+                <tr>
+                    <td>備考</td>
+                    <td>テキストエリア</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>要望・相談事項を自由記入（最大500文字）</td>
+                </tr>
+                <tr>
+                    <td>キャンセルポリシー</td>
+                    <td>表示項目</td>
+                    <td>-</td>
+                    <td>キャンセル規定を常に表示</td>
+                </tr>
+                <tr>
+                    <td>予約確定ボタン</td>
+                    <td>ボタン</td>
+                    <td>-</td>
+                    <td>予約をCRMへ登録し、完了画面へ遷移</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>予約確定時にCRMの予約オブジェクトへ新規レコード作成</li>
+                    <li>スタッフ側アプリへリアルタイム通知</li>
+                    <li>確定後、成功画面を表示してホーム画面へ戻る</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>⚠ エラーハンドリング：</strong>
+                <ul>
+                    <li>予約枠が埋まった場合：「選択した時間は予約が埋まりました。別の時間を選択してください」</li>
+                    <li>システムエラー時：「予約の登録に失敗しました。もう一度お試しください」</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 予約詳細画面 -->
+        <div class="screen-section">
+            <h3>S-05: 予約詳細画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>予約の詳細情報を確認し、変更やキャンセルを行う画面です。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000;">
+                        <span>← 予約詳細</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="background: #2ecc71; color: white; padding: 10px; border-radius: 5px; text-align: center; font-weight: 600; margin-bottom: 20px;">
+                            予約確定
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <div style="color: #666; font-size: 0.9em;">日時</div>
+                            <div style="font-size: 1.3em; font-weight: bold; margin-top: 5px;">11月8日（金）10:00-11:00</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="color: #666; font-size: 0.9em;">メニュー</div>
+                            <div style="font-size: 1.1em; font-weight: 600; margin-top: 5px;">パーソナルトレーニング（60分）</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="color: #666; font-size: 0.9em;">担当トレーナー</div>
+                            <div style="font-size: 1.1em; font-weight: 600; margin-top: 5px;">田中 健太</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="color: #666; font-size: 0.9em;">料金</div>
+                            <div style="font-size: 1.1em; font-weight: 600; margin-top: 5px;">¥8,000</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="color: #666; font-size: 0.9em;">備考</div>
+                            <div style="font-size: 0.95em; margin-top: 5px; padding: 10px; background: #f9f9f9; border-radius: 5px;">
+                                腰痛があるため、軽めのメニューでお願いします
+                            </div>
+                        </div>
+                        
+                        <div style="border-top: 1px solid #ddd; padding-top: 20px; margin-top: 30px;">
+                            <div style="background: #666; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600; margin-bottom: 10px;">
+                                予約内容を変更
+                            </div>
+                            <div style="background: #e74c3c; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600;">
+                                予約をキャンセル
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 5px; font-size: 0.9em;">
+                            <strong>⚠ キャンセルポリシー</strong><br>
+                            前日まで：無料<br>
+                            当日：料金の50%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                    <th>アクション</th>
+                </tr>
+                <tr>
+                    <td>予約ステータス</td>
+                    <td>確定/仮予約/キャンセル済みをバッジ表示</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>予約詳細情報</td>
+                    <td>日時・メニュー・担当者・料金・備考を表示</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>予約変更ボタン</td>
+                    <td>日時やメニューの変更が可能</td>
+                    <td>ホーム画面(S-02)を編集モードで開く</td>
+                </tr>
+                <tr>
+                    <td>キャンセルボタン</td>
+                    <td>予約をキャンセル</td>
+                    <td>確認ダイアログ表示 → キャンセル処理</td>
+                </tr>
+                <tr>
+                    <td>キャンセルポリシー</td>
+                    <td>キャンセル規定を常に表示</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <strong>📌 操作制限：</strong>
+                <ul>
+                    <li>予約開始2時間前以降は変更・キャンセル不可（店舗へ電話連絡を促すメッセージ表示）</li>
+                    <li>キャンセル済み予約は「キャンセル済み」バッジ表示、ボタン非表示</li>
+                    <li>過去の予約は変更・キャンセルボタン非表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 体調記録入力画面 -->
+        <div class="screen-section">
+            <h3>S-06: 体調記録入力画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>日々の体調を簡単に記録し、トレーニングや体調管理に活用するためのデータを蓄積します。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header">
+                        <span>← 体調記録</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 1.3em; font-weight: bold;">2025年11月5日（水）</div>
+                            <div style="font-size: 0.9em; color: #666; margin-top: 5px;">今日の体調を記録しましょう</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px;">
+                                体重 <span class="label label-optional">任意</span>
+                            </label>
+                            <div class="input-field" style="text-align: left; display: flex; align-items: center;">
+                                <input type="text" placeholder="65.5" style="border: none; background: transparent; width: 100%; font-size: 1.1em;">
+                                <span style="margin-left: 10px; color: #666;">kg</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px;">
+                                体調 <span class="label label-required">必須</span>
+                            </label>
+                            <div style="display: flex; justify-content: space-between; gap: 10px;">
+                                <div style="flex: 1; padding: 15px; border: 2px solid #ddd; border-radius: 5px; text-align: center; cursor: pointer;">
+                                    <div style="font-size: 1.5em;">😢</div>
+                                    <div style="font-size: 0.85em; margin-top: 5px;">悪い</div>
+                                </div>
+                                <div style="flex: 1; padding: 15px; border: 2px solid #ddd; border-radius: 5px; text-align: center; cursor: pointer;">
+                                    <div style="font-size: 1.5em;">😐</div>
+                                    <div style="font-size: 0.85em; margin-top: 5px;">普通</div>
+                                </div>
+                                <div style="flex: 1; padding: 15px; border: 2px solid #3498db; background: #e8f4f8; border-radius: 5px; text-align: center; cursor: pointer;">
+                                    <div style="font-size: 1.5em;">😊</div>
+                                    <div style="font-size: 0.85em; margin-top: 5px; font-weight: 600; color: #3498db;">良い</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px;">
+                                睡眠時間 <span class="label label-optional">任意</span>
+                            </label>
+                            <div class="input-field" style="text-align: left; display: flex; align-items: center;">
+                                <input type="text" placeholder="7" style="border: none; background: transparent; width: 100%; font-size: 1.1em;">
+                                <span style="margin-left: 10px; color: #666;">時間</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px;">
+                                メモ <span class="label label-optional">任意</span>
+                            </label>
+                            <textarea class="input-field" placeholder="体調や気になることを記録" style="min-height: 100px; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <div class="button" style="width: 100%;">
+                            記録を保存
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>項目</th>
+                    <th>種類</th>
+                    <th>必須/任意</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>記録日</td>
+                    <td>日付表示</td>
+                    <td>-</td>
+                    <td>デフォルトは当日、カレンダーから変更可能</td>
+                </tr>
+                <tr>
+                    <td>体重</td>
+                    <td>数値入力</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>0.1kg単位、20〜200kgの範囲</td>
+                </tr>
+                <tr>
+                    <td>体調</td>
+                    <td>3段階選択（絵文字）</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>悪い / 普通 / 良い から選択</td>
+                </tr>
+                <tr>
+                    <td>睡眠時間</td>
+                    <td>数値入力</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>0.5時間単位、0〜24時間の範囲</td>
+                </tr>
+                <tr>
+                    <td>メモ</td>
+                    <td>テキストエリア</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>自由記述（最大1000文字）</td>
+                </tr>
+                <tr>
+                    <td>保存ボタン</td>
+                    <td>ボタン</td>
+                    <td>-</td>
+                    <td>記録をCRMへ保存</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMの体調記録オブジェクトへ保存</li>
+                    <li>同じ日付で複数回記録した場合は最新を保持（上書き）</li>
+                    <li>保存後、グラフ画面(S-11)へ遷移可能なメッセージ表示</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>🎨 UX改善ポイント：</strong>
+                <ul>
+                    <li>体調選択は絵文字で視覚的に分かりやすく</li>
+                    <li>入力完了後「記録しました！」と明確なフィードバック</li>
+                    <li>過去の記録日はカレンダーにマーク表示（記録済みが一目で分かる）</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 食事記録入力画面 -->
+        <div class="screen-section">
+            <h3>S-07: 食事記録入力画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>日々の食事内容を記録し、栄養管理とトレーニング効果の最大化を支援する画面です。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000;">
+                        <span>← 食事記録</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 1.3em; font-weight: bold;">2025年11月7日（木）</div>
+                            <div style="font-size: 0.9em; color: #666; margin-top: 5px;">今日の食事を記録しましょう</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                食事タイプ <span class="label label-required">必須</span>
+                            </label>
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1; padding: 12px; background: #000; color: white; border-radius: 8px; text-align: center; font-size: 0.9em; font-weight: 600;">
+                                    朝食
+                                </div>
+                                <div style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    昼食
+                                </div>
+                                <div style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    夕食
+                                </div>
+                                <div style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    間食
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                食事内容 <span class="label label-required">必須</span>
+                            </label>
+                            <textarea class="input-field" placeholder="例：鶏胸肉のグリル、玄米ご飯、野菜サラダ" style="min-height: 100px; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                写真を追加 <span style="color: #999; font-weight: normal; font-size: 0.9em;">（任意）</span>
+                            </label>
+                            <div style="border: 2px dashed #ddd; border-radius: 8px; padding: 40px 20px; text-align: center; color: #999;">
+                                <div style="font-size: 2em; margin-bottom: 10px;">📷</div>
+                                <div style="font-size: 0.9em;">タップして写真を追加</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                カロリー（目安） <span style="color: #999; font-weight: normal; font-size: 0.9em;">（任意）</span>
+                            </label>
+                            <div class="input-field" style="text-align: left; display: flex; align-items: center;">
+                                <input type="text" placeholder="500" style="border: none; background: transparent; width: 100%; font-size: 1.1em;">
+                                <span style="margin-left: 10px; color: #666;">kcal</span>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #000; color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 1.05em;">
+                            記録を保存
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>項目</th>
+                    <th>種類</th>
+                    <th>必須/任意</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>記録日</td>
+                    <td>日付表示</td>
+                    <td>-</td>
+                    <td>デフォルトは当日、カレンダーから変更可能</td>
+                </tr>
+                <tr>
+                    <td>食事タイプ</td>
+                    <td>4択選択（ボタン）</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>朝食 / 昼食 / 夕食 / 間食 から選択</td>
+                </tr>
+                <tr>
+                    <td>食事内容</td>
+                    <td>テキストエリア</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>食べた料理名や食材を記入（最大1000文字）</td>
+                </tr>
+                <tr>
+                    <td>写真</td>
+                    <td>画像アップロード</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>食事の写真を最大3枚まで追加可能</td>
+                </tr>
+                <tr>
+                    <td>カロリー</td>
+                    <td>数値入力</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>概算カロリーを記入（0〜9999kcal）</td>
+                </tr>
+                <tr>
+                    <td>保存ボタン</td>
+                    <td>ボタン</td>
+                    <td>-</td>
+                    <td>記録をCRMへ保存</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMの食事記録オブジェクトへ保存</li>
+                    <li>画像はBase64エンコードまたはストレージURLで保存</li>
+                    <li>同じ日・同じ食事タイプで複数回記録可能</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>🎨 UX改善ポイント：</strong>
+                <ul>
+                    <li>写真から自動でカロリー推定機能（将来実装）</li>
+                    <li>よく食べるメニューのテンプレート機能</li>
+                    <li>栄養バランス（PFC比）の可視化</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 個人トレーニング入力画面 -->
+        <div class="screen-section">
+            <h3>S-08: 個人トレーニング入力画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>ジム外で個人的に実施したトレーニング（ヨガ、ランニング、ストレッチなど）を記録し、全体的な活動量を把握する画面です。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000;">
+                        <span>← 個人トレーニング記録</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 1.3em; font-weight: bold;">2025年11月7日（木）</div>
+                            <div style="font-size: 0.9em; color: #666; margin-top: 5px;">今日の個人トレーニングを記録</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                トレーニング種目 <span class="label label-required">必須</span>
+                            </label>
+                            <select class="input-field" style="width: 100%;">
+                                <option>選択してください</option>
+                                <option>ランニング</option>
+                                <option>ウォーキング</option>
+                                <option>ヨガ</option>
+                                <option>ストレッチ</option>
+                                <option>筋トレ</option>
+                                <option>サイクリング</option>
+                                <option>水泳</option>
+                                <option>その他</option>
+                            </select>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                実施時間 <span class="label label-required">必須</span>
+                            </label>
+                            <div class="input-field" style="text-align: left; display: flex; align-items: center;">
+                                <input type="text" placeholder="30" style="border: none; background: transparent; width: 100%; font-size: 1.1em;">
+                                <span style="margin-left: 10px; color: #666;">分</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                運動強度 <span style="color: #999; font-weight: normal; font-size: 0.9em;">（任意）</span>
+                            </label>
+                            <div style="display: flex; justify-content: space-between; gap: 10px;">
+                                <div style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    軽め
+                                </div>
+                                <div style="flex: 1; padding: 12px; background: #000; color: white; border-radius: 8px; text-align: center; font-size: 0.9em; font-weight: 600;">
+                                    普通
+                                </div>
+                                <div style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 0.9em;">
+                                    ハード
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95em;">
+                                メモ <span style="color: #999; font-weight: normal; font-size: 0.9em;">（任意）</span>
+                            </label>
+                            <textarea class="input-field" placeholder="体調や気づいたことを記録" style="min-height: 100px; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <div style="background: #000; color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 1.05em;">
+                            記録を保存
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>項目</th>
+                    <th>種類</th>
+                    <th>必須/任意</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>記録日</td>
+                    <td>日付表示</td>
+                    <td>-</td>
+                    <td>デフォルトは当日、カレンダーから変更可能</td>
+                </tr>
+                <tr>
+                    <td>トレーニング種目</td>
+                    <td>ドロップダウン</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>ランニング、ヨガ、筋トレなどから選択</td>
+                </tr>
+                <tr>
+                    <td>実施時間</td>
+                    <td>数値入力</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>分単位で記入（1〜999分）</td>
+                </tr>
+                <tr>
+                    <td>運動強度</td>
+                    <td>3段階選択</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>軽め / 普通 / ハード から選択</td>
+                </tr>
+                <tr>
+                    <td>メモ</td>
+                    <td>テキストエリア</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>自由記述（最大1000文字）</td>
+                </tr>
+                <tr>
+                    <td>保存ボタン</td>
+                    <td>ボタン</td>
+                    <td>-</td>
+                    <td>記録をCRMへ保存</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMの個人トレーニング記録オブジェクトへ保存</li>
+                    <li>同じ日に複数回記録可能（朝のランニング + 夜のヨガなど）</li>
+                    <li>週次・月次の活動量集計に活用</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>🎨 UX改善ポイント：</strong>
+                <ul>
+                    <li>よく実施する種目をクイック選択ボタンとして表示</li>
+                    <li>消費カロリーの自動計算（種目 × 時間 × 体重から推定）</li>
+                    <li>週間の運動時間目標設定と達成率表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- カウンセリングシート画面 -->
+        <div class="screen-section">
+            <h3>S-09: カウンセリングシート画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>初回カウンセリング時の詳細情報を入力する画面です。目標設定や体の悩み、運動経験などを記録します。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム（概要）</h4>
+                <div class="phone-frame">
+                    <div class="screen-header">
+                        <span>← カウンセリングシート</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="background: #e8f4f8; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                            <div style="font-weight: 600; margin-bottom: 5px;">📋 初回カウンセリング</div>
+                            <div style="font-size: 0.9em; color: #666;">基本情報と目標を入力してください</div>
+                        </div>
+                        
+                        <h4 style="margin-bottom: 15px;">基本情報</h4>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 8px;">
+                                目標 <span class="label label-required">必須</span>
+                            </label>
+                            <textarea class="input-field" placeholder="例：3ヶ月で体重を5kg減らしたい" style="min-height: 80px;"></textarea>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 8px;">
+                                運動経験 <span class="label label-required">必須</span>
+                            </label>
+                            <select class="input-field">
+                                <option>選択してください</option>
+                                <option>ほとんどない</option>
+                                <option>少しある</option>
+                                <option>定期的に運動している</option>
+                            </select>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 8px;">
+                                既往歴・持病 <span class="label label-optional">任意</span>
+                            </label>
+                            <textarea class="input-field" placeholder="トレーニングに影響する既往歴や持病があれば記入" style="min-height: 80px;"></textarea>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 8px;">
+                                気になる部位 <span class="label label-optional">任意</span>
+                            </label>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <div style="padding: 8px 15px; border: 2px solid #ddd; border-radius: 20px; font-size: 0.9em;">お腹</div>
+                                <div style="padding: 8px 15px; border: 2px solid #3498db; background: #e8f4f8; border-radius: 20px; font-size: 0.9em; font-weight: 600;">脚</div>
+                                <div style="padding: 8px 15px; border: 2px solid #ddd; border-radius: 20px; font-size: 0.9em;">腕</div>
+                                <div style="padding: 8px 15px; border: 2px solid #ddd; border-radius: 20px; font-size: 0.9em;">背中</div>
+                                <div style="padding: 8px 15px; border: 2px solid #ddd; border-radius: 20px; font-size: 0.9em;">ヒップ</div>
+                            </div>
+                        </div>
+                        
+                        <div class="button" style="width: 100%;">
+                            保存
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>項目</th>
+                    <th>種類</th>
+                    <th>必須/任意</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>目標</td>
+                    <td>テキストエリア</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>トレーニング・整体の目標を自由記述</td>
+                </tr>
+                <tr>
+                    <td>運動経験</td>
+                    <td>ドロップダウン</td>
+                    <td><span class="label label-required">必須</span></td>
+                    <td>ほとんどない / 少しある / 定期的に運動している</td>
+                </tr>
+                <tr>
+                    <td>既往歴・持病</td>
+                    <td>テキストエリア</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>トレーニングに影響する情報を記入</td>
+                </tr>
+                <tr>
+                    <td>気になる部位</td>
+                    <td>複数選択（チェックボックス）</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>お腹 / 脚 / 腕 / 背中 / ヒップ など</td>
+                </tr>
+                <tr>
+                    <td>その他要望</td>
+                    <td>テキストエリア</td>
+                    <td><span class="label label-optional">任意</span></td>
+                    <td>トレーナーへの要望を自由記述</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMのカウンセリングオブジェクトへ保存</li>
+                    <li>既存のカウンセリングシートがある場合は編集モードで表示</li>
+                    <li>スタッフ側アプリでも同じ情報を閲覧・編集可能</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- レポート一覧画面 -->
+        <div class="screen-section">
+            <h3>S-10: レポート一覧画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>各種レポートへのハブとなる画面です。トレーニング履歴、体調変化、食事記録などへのナビゲーションと、主要指標のサマリーを表示します。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000;">
+                        <span style="letter-spacing: 1px;">レポート</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <!-- サマリーカード -->
+                        <div style="background: #000; color: white; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                            <div style="font-weight: 600; margin-bottom: 15px; font-size: 1.1em;">今月のサマリー</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div>
+                                    <div style="color: #999; font-size: 0.85em; margin-bottom: 5px;">トレーニング</div>
+                                    <div style="font-size: 1.5em; font-weight: bold;">8回</div>
+                                </div>
+                                <div>
+                                    <div style="color: #999; font-size: 0.85em; margin-bottom: 5px;">体重変化</div>
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #2ecc71;">-1.2kg</div>
+                                </div>
+                                <div>
+                                    <div style="color: #999; font-size: 0.85em; margin-bottom: 5px;">記録日数</div>
+                                    <div style="font-size: 1.5em; font-weight: bold;">18日</div>
+                                </div>
+                                <div>
+                                    <div style="color: #999; font-size: 0.85em; margin-bottom: 5px;">平均体調</div>
+                                    <div style="font-size: 1.5em; font-weight: bold;">😊 良</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- クイックアクション -->
+                        <div style="margin-bottom: 25px;">
+                            <h4 style="margin-bottom: 15px; font-size: 1em;">記録する</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                                <div style="padding: 15px 10px; border: 1px solid #000; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 1.5em; margin-bottom: 5px;">📝</div>
+                                    <div style="font-size: 0.85em; font-weight: 600;">体調記録</div>
+                                </div>
+                                <div style="padding: 15px 10px; border: 1px solid #000; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 1.5em; margin-bottom: 5px;">🍽️</div>
+                                    <div style="font-size: 0.85em; font-weight: 600;">食事記録</div>
+                                </div>
+                                <div style="padding: 15px 10px; border: 1px solid #000; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 1.5em; margin-bottom: 5px;">💪</div>
+                                    <div style="font-size: 0.85em; font-weight: 600;">個人トレ</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- レポート一覧 -->
+                        <div>
+                            <h4 style="margin-bottom: 15px; font-size: 1em;">レポートを見る</h4>
+                            
+                            <div class="card" style="border-left: 4px solid #000;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 1.05em; margin-bottom: 3px;">トレーニング履歴</div>
+                                        <div style="color: #666; font-size: 0.85em;">累計 24回 実施</div>
+                                    </div>
+                                    <div style="font-size: 1.2em;">›</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" style="border-left: 4px solid #000;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 1.05em; margin-bottom: 3px;">整体履歴</div>
+                                        <div style="color: #666; font-size: 0.85em;">累計 12回 実施</div>
+                                    </div>
+                                    <div style="font-size: 1.2em;">›</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" style="border-left: 4px solid #000;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 1.05em; margin-bottom: 3px;">Inbodyデータ</div>
+                                        <div style="color: #666; font-size: 0.85em;">最新測定: 11/1</div>
+                                    </div>
+                                    <div style="font-size: 1.2em;">›</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" style="border-left: 4px solid #000;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 1.05em; margin-bottom: 3px;">食事履歴</div>
+                                        <div style="color: #666; font-size: 0.85em;">今月 45件 記録</div>
+                                    </div>
+                                    <div style="font-size: 1.2em;">›</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" style="border-left: 4px solid #000;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 1.05em; margin-bottom: 3px;">体調変化グラフ</div>
+                                        <div style="color: #666; font-size: 0.85em;">過去30日の推移</div>
+                                    </div>
+                                    <div style="font-size: 1.2em;">›</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-bar" style="background: #000;">
+                        <div class="tab-item" style="opacity: 0.5;">🏠<br><span style="font-size: 0.8em;">ホーム</span></div>
+                        <div class="tab-item" style="opacity: 1;">📊<br><span style="font-size: 0.8em;">レポート</span></div>
+                        <div class="tab-item" style="opacity: 0.5;">👤<br><span style="font-size: 0.8em;">マイページ</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                    <th>アクション</th>
+                </tr>
+                <tr>
+                    <td>今月のサマリー</td>
+                    <td>トレーニング回数、体重変化、記録日数、平均体調を表示</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>クイックアクションボタン</td>
+                    <td>体調記録・食事記録・個人トレーニング記録へのショートカット</td>
+                    <td>タップで各記録画面(S-06/S-07/S-08)へ</td>
+                </tr>
+                <tr>
+                    <td>トレーニング履歴カード</td>
+                    <td>累計実施回数を表示</td>
+                    <td>タップでトレーニング履歴(S-11)へ</td>
+                </tr>
+                <tr>
+                    <td>整体履歴カード</td>
+                    <td>累計実施回数を表示</td>
+                    <td>タップで整体履歴(S-12)へ</td>
+                </tr>
+                <tr>
+                    <td>Inbodyデータカード</td>
+                    <td>最新測定日を表示</td>
+                    <td>タップでInbodyレポート(S-13)へ</td>
+                </tr>
+                <tr>
+                    <td>食事履歴カード</td>
+                    <td>今月の記録件数を表示</td>
+                    <td>タップで食事履歴(S-14)へ</td>
+                </tr>
+                <tr>
+                    <td>体調変化グラフカード</td>
+                    <td>表示期間を表示</td>
+                    <td>タップで体調変化グラフ(S-15)へ</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMから各種レポートのサマリーデータを取得</li>
+                    <li>今月（当月1日〜現在）のデータを集計</li>
+                    <li>体重変化は今月初日と最新の差分を表示</li>
+                    <li>平均体調は今月の体調記録の平均値を表示</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>🎨 UX設計のポイント：</strong>
+                <ul>
+                    <li><strong>ハブとしての機能：</strong>全てのレポート・記録機能へのアクセスポイント</li>
+                    <li><strong>サマリーで動機付け：</strong>今月の成果を数値で可視化してモチベーション向上</li>
+                    <li><strong>クイックアクション：</strong>記録系機能へのショートカットで記録習慣を促進</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- トレーニング履歴画面 -->
+        <div class="screen-section">
+            <h3>S-11: トレーニング履歴画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>過去のトレーニング記録を閲覧し、進捗を確認できる画面です。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header">
+                        <span>← トレーニング履歴</span>
+                        <span>📊</span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; font-weight: bold; color: #3498db;">24</div>
+                                <div style="font-size: 0.9em; color: #666;">トレーニング実施回数</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.1em;">2025年11月3日（月）</div>
+                                    <div style="color: #666; font-size: 0.9em; margin-top: 3px;">担当：田中 健太</div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f9f9f9; padding: 12px; border-radius: 5px; margin-bottom: 10px;">
+                                <div style="font-weight: 600; margin-bottom: 8px;">実施メニュー</div>
+                                <ul style="margin: 0; padding-left: 20px; font-size: 0.95em;">
+                                    <li>スクワット 15kg × 10回 × 3セット</li>
+                                    <li>ベンチプレス 20kg × 8回 × 3セット</li>
+                                    <li>デッドリフト 30kg × 6回 × 3セット</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: #fff9e6; padding: 10px; border-radius: 5px; font-size: 0.9em;">
+                                <strong>トレーナーコメント：</strong><br>
+                                フォームが安定してきました。次回は重量アップしましょう！
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.1em;">2025年10月30日（金）</div>
+                                    <div style="color: #666; font-size: 0.9em; margin-top: 3px;">担当：佐藤 美咲</div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f9f9f9; padding: 12px; border-radius: 5px; margin-bottom: 10px;">
+                                <div style="font-weight: 600; margin-bottom: 8px;">実施メニュー</div>
+                                <ul style="margin: 0; padding-left: 20px; font-size: 0.95em;">
+                                    <li>ランジ 自重 × 15回 × 3セット</li>
+                                    <li>プランク 45秒 × 3セット</li>
+                                    <li>バックエクステンション 12回 × 3セット</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: #fff9e6; padding: 10px; border-radius: 5px; font-size: 0.9em;">
+                                <strong>トレーナーコメント：</strong><br>
+                                体幹が強くなってきました。良い調子です！
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-bar" style="background: #000;">
+                        <div class="tab-item" style="opacity: 0.5;">🏠<br><span style="font-size: 0.8em;">ホーム</span></div>
+                        <div class="tab-item" style="opacity: 1;">📊<br><span style="font-size: 0.8em;">レポート</span></div>
+                        <div class="tab-item" style="opacity: 0.5;">👤<br><span style="font-size: 0.8em;">マイページ</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>実施回数サマリ</td>
+                    <td>累計トレーニング回数を大きく表示</td>
+                </tr>
+                <tr>
+                    <td>トレーニングカード</td>
+                    <td>実施日・担当者・メニュー・コメントを表示</td>
+                </tr>
+                <tr>
+                    <td>実施メニュー</td>
+                    <td>種目・重量・回数・セット数を箇条書き</td>
+                </tr>
+                <tr>
+                    <td>トレーナーコメント</td>
+                    <td>トレーナーからのフィードバックを表示</td>
+                </tr>
+                <tr>
+                    <td>グラフボタン</td>
+                    <td>ヘッダー右上、重量推移グラフへ遷移</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMのトレーニング実施記録オブジェクトから取得</li>
+                    <li>最新順に表示（ページネーション：20件ずつ）</li>
+                    <li>トレーニング動画が登録されている場合はサムネイル表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 整体履歴画面 -->
+        <div class="screen-section">
+            <h3>S-12: 整体履歴画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>過去の整体・ボディケアの記録を閲覧し、体の変化を確認できる画面です。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム（概要）</h4>
+                <p style="padding: 20px; background: #f9f9f9; border-radius: 5px;">
+                    トレーニング履歴画面(S-08)と同様のレイアウトで、以下の情報を表示：
+                </p>
+                <ul style="margin-top: 10px;">
+                    <li><strong>実施回数サマリ：</strong>累計整体実施回数</li>
+                    <li><strong>整体カード：</strong>実施日・担当者・施術内容・症状・施術後コメント</li>
+                    <li><strong>施術内容：</strong>施術箇所（肩・腰・脚など）と施術方法</li>
+                    <li><strong>症状改善度：</strong>5段階評価（星マーク）</li>
+                </ul>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>実施回数サマリ</td>
+                    <td>累計整体実施回数を大きく表示</td>
+                </tr>
+                <tr>
+                    <td>整体カード</td>
+                    <td>実施日・担当者・施術内容・症状を表示</td>
+                </tr>
+                <tr>
+                    <td>施術箇所</td>
+                    <td>肩・腰・脚などの施術部位をタグ表示</td>
+                </tr>
+                <tr>
+                    <td>症状改善度</td>
+                    <td>5段階評価を星マークで表示</td>
+                </tr>
+                <tr>
+                    <td>施術後コメント</td>
+                    <td>施術後の体調変化や注意事項を表示</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMの整体実施記録オブジェクトから取得</li>
+                    <li>最新順に表示（ページネーション：20件ずつ）</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Inbodyレポート画面 -->
+        <div class="screen-section">
+            <h3>S-13: Inbodyレポート画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>Inbody測定データの推移をグラフで可視化し、体組成の変化を確認できる画面です。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header">
+                        <span>← Inbodyレポート</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                            <div style="font-weight: 600; margin-bottom: 10px;">最新測定結果（11/1）</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div>
+                                    <div style="font-size: 0.85em; color: #666;">体重</div>
+                                    <div style="font-size: 1.3em; font-weight: bold; color: #3498db;">65.2 kg</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.85em; color: #666;">体脂肪率</div>
+                                    <div style="font-size: 1.3em; font-weight: bold; color: #e74c3c;">18.5 %</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.85em; color: #666;">骨格筋量</div>
+                                    <div style="font-size: 1.3em; font-weight: bold; color: #27ae60;">32.1 kg</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.85em; color: #666;">BMI</div>
+                                    <div style="font-size: 1.3em; font-weight: bold;">22.4</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-bottom: 10px;">体重推移</h4>
+                        <div style="background: white; border: 1px solid #ddd; border-radius: 5px; padding: 15px; height: 200px; margin-bottom: 20px;">
+                            <div style="text-align: center; color: #999; padding-top: 80px;">
+                                📈 折れ線グラフ<br>
+                                （過去6ヶ月の体重推移）
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-bottom: 10px;">体脂肪率推移</h4>
+                        <div style="background: white; border: 1px solid #ddd; border-radius: 5px; padding: 15px; height: 200px; margin-bottom: 20px;">
+                            <div style="text-align: center; color: #999; padding-top: 80px;">
+                                📉 折れ線グラフ<br>
+                                （過去6ヶ月の体脂肪率推移）
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-bottom: 10px;">測定履歴</h4>
+                        <div class="card" style="font-size: 0.9em;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>2025年11月1日</span>
+                                <span style="font-weight: 600;">詳細 ›</span>
+                            </div>
+                            <div style="color: #666;">体重: 65.2kg / 体脂肪率: 18.5%</div>
+                        </div>
+                        <div class="card" style="font-size: 0.9em;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>2025年10月1日</span>
+                                <span style="font-weight: 600;">詳細 ›</span>
+                            </div>
+                            <div style="color: #666;">体重: 66.8kg / 体脂肪率: 19.2%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>最新測定結果</td>
+                    <td>直近のInbodyデータを4つのKPIで表示</td>
+                </tr>
+                <tr>
+                    <td>体重推移グラフ</td>
+                    <td>過去6ヶ月の体重変化を折れ線グラフで表示</td>
+                </tr>
+                <tr>
+                    <td>体脂肪率推移グラフ</td>
+                    <td>過去6ヶ月の体脂肪率変化を折れ線グラフで表示</td>
+                </tr>
+                <tr>
+                    <td>測定履歴リスト</td>
+                    <td>過去の測定記録を日付順に表示（タップで詳細へ）</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMのInbodyデータオブジェクトから取得</li>
+                    <li>グラフは最新6ヶ月分のデータを表示（データポイント：月1回測定想定）</li>
+                    <li>測定履歴は最新10件まで表示</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>🎨 グラフ実装について：</strong>
+                <p>Zoho Creatorのチャート機能またはChart.jsなどのライブラリを活用して折れ線グラフを実装します。色分けは以下を推奨：</p>
+                <ul>
+                    <li>体重：青 (#3498db)</li>
+                    <li>体脂肪率：赤 (#e74c3c)</li>
+                    <li>骨格筋量：緑 (#27ae60)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 食事履歴画面 -->
+        <div class="screen-section">
+            <h3>S-14: 食事履歴画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>過去の食事記録を振り返り、食習慣を確認・改善する画面です。写真付きで視覚的に確認できます。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000;">
+                        <span>← 食事履歴</span>
+                        <span>📊</span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; font-weight: bold;">45</div>
+                                <div style="font-size: 0.9em; color: #666;">今月の記録件数</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; background: #f0f0f0; border-radius: 5px; padding: 3px; margin-bottom: 20px;">
+                            <div style="flex: 1; background: #000; color: white; padding: 10px; text-align: center; border-radius: 3px; font-weight: 600;">すべて</div>
+                            <div style="flex: 1; padding: 10px; text-align: center; color: #999;">朝食</div>
+                            <div style="flex: 1; padding: 10px; text-align: center; color: #999;">昼食</div>
+                            <div style="flex: 1; padding: 10px; text-align: center; color: #999;">夕食</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div style="margin-bottom: 10px;">
+                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                                    <div>
+                                        <div style="font-weight: bold; font-size: 1.05em;">2025年11月7日（木）</div>
+                                        <div style="color: #666; font-size: 0.9em; margin-top: 3px;">朝食 • 7:30</div>
+                                    </div>
+                                    <div style="background: #f0f0f0; padding: 5px 10px; border-radius: 5px; font-size: 0.85em;">
+                                        480 kcal
+                                    </div>
+                                </div>
+                                
+                                <div style="background: #f9f9f9; padding: 10px; border-radius: 5px; font-size: 0.95em; margin-bottom: 10px;">
+                                    鶏胸肉のグリル、玄米ご飯、野菜サラダ、味噌汁
+                                </div>
+                                
+                                <div style="display: flex; gap: 8px;">
+                                    <div style="width: 80px; height: 80px; background: #e0e0e0; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 2em;">
+                                        📷
+                                    </div>
+                                    <div style="width: 80px; height: 80px; background: #e0e0e0; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 2em;">
+                                        📷
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.05em;">2025年11月6日（水）</div>
+                                    <div style="color: #666; font-size: 0.9em; margin-top: 3px;">夕食 • 19:00</div>
+                                </div>
+                                <div style="background: #f0f0f0; padding: 5px 10px; border-radius: 5px; font-size: 0.85em;">
+                                    620 kcal
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f9f9f9; padding: 10px; border-radius: 5px; font-size: 0.95em;">
+                                焼き魚（鮭）、ほうれん草のお浸し、納豆、ご飯
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.05em;">2025年11月6日（水）</div>
+                                    <div style="color: #666; font-size: 0.9em; margin-top: 3px;">間食 • 15:00</div>
+                                </div>
+                                <div style="background: #f0f0f0; padding: 5px 10px; border-radius: 5px; font-size: 0.85em;">
+                                    150 kcal
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f9f9f9; padding: 10px; border-radius: 5px; font-size: 0.95em;">
+                                プロテインバー、アーモンド
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-bar" style="background: #000;">
+                        <div class="tab-item" style="opacity: 0.5;">🏠<br><span style="font-size: 0.8em;">ホーム</span></div>
+                        <div class="tab-item" style="opacity: 1;">📊<br><span style="font-size: 0.8em;">レポート</span></div>
+                        <div class="tab-item" style="opacity: 0.5;">👤<br><span style="font-size: 0.8em;">マイページ</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>記録件数サマリ</td>
+                    <td>今月の食事記録件数を大きく表示</td>
+                </tr>
+                <tr>
+                    <td>食事タイプフィルター</td>
+                    <td>すべて / 朝食 / 昼食 / 夕食 / 間食 で絞り込み</td>
+                </tr>
+                <tr>
+                    <td>食事記録カード</td>
+                    <td>日時・食事タイプ・内容・カロリー・写真を表示</td>
+                </tr>
+                <tr>
+                    <td>カロリーバッジ</td>
+                    <td>概算カロリーを表示（記録している場合のみ）</td>
+                </tr>
+                <tr>
+                    <td>写真サムネイル</td>
+                    <td>食事写真があれば表示、タップで拡大</td>
+                </tr>
+                <tr>
+                    <td>グラフボタン</td>
+                    <td>ヘッダー右上、カロリー推移グラフへ遷移</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMの食事記録オブジェクトから取得</li>
+                    <li>最新順に表示（ページネーション：20件ずつ）</li>
+                    <li>食事タイプでフィルタリング可能</li>
+                    <li>写真はサムネイル表示、タップで全画面表示</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <strong>🎨 UX改善ポイント：</strong>
+                <ul>
+                    <li>日ごとのカロリー合計を表示</li>
+                    <li>週次・月次のカロリー推移グラフ</li>
+                    <li>PFCバランス（タンパク質・脂質・炭水化物）の可視化</li>
+                    <li>よく食べるメニューのランキング表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 体調変化グラフ画面 -->
+        <div class="screen-section">
+            <h3>S-15: 体調変化グラフ画面</h3>
+            
+            <h4>画面の目的</h4>
+            <p>日々記録した体調データをグラフで可視化し、体調の変化パターンを把握できる画面です。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム（概要）</h4>
+                <p style="padding: 20px; background: #f9f9f9; border-radius: 5px;">
+                    以下の情報をグラフと表で表示：
+                </p>
+                <ul style="margin-top: 10px;">
+                    <li><strong>体重グラフ：</strong>過去30日間の体重推移（折れ線グラフ）</li>
+                    <li><strong>体調グラフ：</strong>過去30日間の体調スコア（棒グラフ）</li>
+                    <li><strong>睡眠時間グラフ：</strong>過去30日間の睡眠時間推移（折れ線グラフ）</li>
+                    <li><strong>記録カレンダー：</strong>記録した日をカレンダービューで表示</li>
+                </ul>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td>期間選択</td>
+                    <td>7日間 / 30日間 / 3ヶ月 から選択</td>
+                </tr>
+                <tr>
+                    <td>体重グラフ</td>
+                    <td>選択期間の体重推移を折れ線グラフで表示</td>
+                </tr>
+                <tr>
+                    <td>体調グラフ</td>
+                    <td>体調スコア（悪い=1、普通=2、良い=3）を棒グラフで表示</td>
+                </tr>
+                <tr>
+                    <td>睡眠時間グラフ</td>
+                    <td>選択期間の睡眠時間推移を折れ線グラフで表示</td>
+                </tr>
+                <tr>
+                    <td>記録カレンダー</td>
+                    <td>月ごとのカレンダービューで記録日をマーク表示</td>
+                </tr>
+                <tr>
+                    <td>統計情報</td>
+                    <td>平均体重・平均睡眠時間・体調良好日数を表示</td>
+                </tr>
+            </table>
+            
+            <div class="requirement">
+                <strong>💡 データ連携要件：</strong>
+                <ul>
+                    <li>CRMの体調記録オブジェクトから取得</li>
+                    <li>選択期間に応じてデータを集計・グラフ化</li>
+                    <li>記録のない日は空白（線の途切れ）として表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- プロフィール画面 -->
+        <div class="screen-section">
+            <h3>S-16: プロフィール画面（マイページ）</h3>
+            
+            <h4>画面の目的</h4>
+            <p>顧客情報の閲覧・編集、アプリ設定、ログアウトを行う画面です。</p>
+            
+            <div class="wireframe">
+                <h4>ワイヤーフレーム</h4>
+                <div class="phone-frame">
+                    <div class="screen-header" style="background: #000;">
+                        <span style="letter-spacing: 1px;">マイページ</span>
+                        <span></span>
+                    </div>
+                    <div class="screen-body">
+                        <div style="text-align: center; padding: 20px 0; border-bottom: 1px solid #e0e0e0; margin-bottom: 20px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background: #000; color: white; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 2em;">
+                                👤
+                            </div>
+                            <div style="font-weight: bold; font-size: 1.2em;">山田 太郎</div>
+                            <div style="color: #666; font-size: 0.9em; margin-top: 5px;">yamada@example.com</div>
+                        </div>
+                        
+                        <h4 style="margin-bottom: 15px;">基本情報</h4>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 0.9em; color: #666;">会員番号</div>
+                                    <div style="font-weight: 600; margin-top: 3px;">E-2024-0123</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 0.9em; color: #666;">入会日</div>
+                                    <div style="font-weight: 600; margin-top: 3px;">2024年4月1日</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 0.9em; color: #666;">契約プラン</div>
+                                    <div style="font-weight: 600; margin-top: 3px;">月8回プラン</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: 30px; margin-bottom: 15px;">アカウント</h4>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>パスワード変更</span>
+                                <span>›</span>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>通知設定</span>
+                                <span>›</span>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: 30px; margin-bottom: 15px;">その他</h4>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>利用規約</span>
+                                <span>›</span>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>プライバシーポリシー</span>
+                                <span>›</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <div style="background: #666; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600;">
+                                ログアウト
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-bar" style="background: #000;">
+                        <div class="tab-item" style="opacity: 0.5;">🏠<br><span style="font-size: 0.8em;">ホーム</span></div>
+                        <div class="tab-item" style="opacity: 0.5;">📊<br><span style="font-size: 0.8em;">レポート</span></div>
+                        <div class="tab-item" style="opacity: 1;">👤<br><span style="font-size: 0.8em;">マイページ</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>UI要素詳細</h4>
+            <table>
+                <tr>
+                    <th>要素</th>
+                    <th>説明</th>
+                    <th>アクション</th>
+                </tr>
+                <tr>
+                    <td>プロフィール画像</td>
+                    <td>顧客のアイコン（デフォルトはシルエット）</td>
+                    <td>タップで画像変更可能</td>
+                </tr>
+                <tr>
+                    <td>基本情報</td>
+                    <td>会員番号・入会日・契約プランを表示</td>
+                    <td>閲覧のみ（編集不可）</td>
+                </tr>
+                <tr>
+                    <td>パスワード変更</td>
+                    <td>パスワード変更画面へ遷移</td>
+                    <td>現在のパスワード・新しいパスワードを入力</td>
+                </tr>
+                <tr>
+                    <td>通知設定</td>
+                    <td>プッシュ通知のON/OFF設定</td>
+                    <td>予約リマインダー・お知らせ通知の設定</td>
+                </tr>
+                <tr>
+                    <td>利用規約・ポリシー</td>
+                    <td>各種規約・ポリシーの確認</td>
+                    <td>別画面またはWebビューで表示</td>
+                </tr>
+                <tr>
+                    <td>ログアウト</td>
+                    <td>アプリからログアウト</td>
+                    <td>確認ダイアログ表示後、ログイン画面へ</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <strong>📌 編集可能項目：</strong>
+                <ul>
+                    <li>プロフィール画像</li>
+                    <li>パスワード</li>
+                    <li>通知設定</li>
+                </ul>
+                <p style="margin-top: 10px;">その他の基本情報（名前・メールアドレス・会員番号・プラン等）は店舗スタッフのみが編集可能です。</p>
+            </div>
+        </div>
+
+        <h2>🎨 6. 共通UIコンポーネント</h2>
+        
+        <h3>6.1 ボトムナビゲーション（3タブ構成）</h3>
+        <table>
+            <tr>
+                <th>タブ</th>
+                <th>アイコン</th>
+                <th>遷移先</th>
+                <th>説明</th>
+            </tr>
+            <tr>
+                <td>ホーム</td>
+                <td>🏠</td>
+                <td>ホーム画面 (S-02)</td>
+                <td>予約作成・予約確認のメイン画面</td>
+            </tr>
+            <tr>
+                <td>レポート</td>
+                <td>📊</td>
+                <td>レポート一覧画面 (S-10)</td>
+                <td>各種レポート・記録機能へのハブ画面</td>
+            </tr>
+            <tr>
+                <td>マイページ</td>
+                <td>👤</td>
+                <td>プロフィール画面 (S-16)</td>
+                <td>顧客情報・設定・ログアウト</td>
+            </tr>
+        </table>
+        
+        <div class="note">
+            <strong>📌 ナビゲーションルール：</strong>
+            <ul>
+                <li>全画面で表示（ログイン画面を除く）</li>
+                <li>現在地を不透明度100%で表示、他は50%</li>
+                <li>背景色は黒(#000000)、テキストは白</li>
+                <li>タップ時にわずかなアニメーション効果</li>
+            </ul>
+        </div>
+        
+        <h3>6.2 通知バナー</h3>
+        <table>
+            <tr>
+                <th>種類</th>
+                <th>色</th>
+                <th>用途</th>
+            </tr>
+            <tr>
+                <td>成功</td>
+                <td style="background: #27ae60; color: white;">#27ae60</td>
+                <td>予約完了、記録保存完了など</td>
+            </tr>
+            <tr>
+                <td>エラー</td>
+                <td style="background: #e74c3c; color: white;">#e74c3c</td>
+                <td>入力エラー、通信エラーなど</td>
+            </tr>
+            <tr>
+                <td>警告</td>
+                <td style="background: #f39c12; color: white;">#f39c12</td>
+                <td>キャンセル確認、注意喚起など</td>
+            </tr>
+            <tr>
+                <td>情報</td>
+                <td style="background: #3498db; color: white;">#3498db</td>
+                <td>お知らせ、ヒントなど</td>
+            </tr>
+        </table>
+        
+        <h3>6.3 ローディング表示</h3>
+        <ul>
+            <li>データ取得中：画面中央にスピナー表示</li>
+            <li>ボタン押下後：ボタン内にスピナー表示し、二重送信を防止</li>
+            <li>スピナーの色：プライマリカラー (#3498db)</li>
+        </ul>
+        
+        <h3>6.4 エラーメッセージ</h3>
+        <table>
+            <tr>
+                <th>エラー種類</th>
+                <th>メッセージ例</th>
+                <th>対応</th>
+            </tr>
+            <tr>
+                <td>必須入力エラー</td>
+                <td>「〇〇を入力してください」</td>
+                <td>入力欄の下に赤文字で表示</td>
+            </tr>
+            <tr>
+                <td>形式エラー</td>
+                <td>「正しいメールアドレスを入力してください」</td>
+                <td>入力欄の下に赤文字で表示</td>
+            </tr>
+            <tr>
+                <td>通信エラー</td>
+                <td>「通信エラーが発生しました。もう一度お試しください」</td>
+                <td>画面上部にバナー表示</td>
+            </tr>
+            <tr>
+                <td>権限エラー</td>
+                <td>「この操作は許可されていません」</td>
+                <td>画面上部にバナー表示</td>
+            </tr>
+        </table>
+
+        <h2>📊 7. データ連携仕様</h2>
+        
+        <h3>7.1 CRM-Creator間のデータ連携</h3>
+        <table>
+            <tr>
+                <th>画面</th>
+                <th>連携データ</th>
+                <th>連携方向</th>
+                <th>更新頻度</th>
+            </tr>
+            <tr>
+                <td>ホーム画面 (S-02)</td>
+                <td>顧客名、次回予約、予約可能日時</td>
+                <td>CRM → Creator</td>
+                <td>リアルタイム</td>
+            </tr>
+            <tr>
+                <td>予約一覧 (S-03)</td>
+                <td>予約データ</td>
+                <td>CRM → Creator</td>
+                <td>リアルタイム</td>
+            </tr>
+            <tr>
+                <td>予約確認 (S-04)</td>
+                <td>新規予約データ</td>
+                <td>Creator → CRM</td>
+                <td>即時</td>
+            </tr>
+            <tr>
+                <td>体調記録 (S-06)</td>
+                <td>体調・体重・睡眠データ</td>
+                <td>Creator → CRM</td>
+                <td>即時</td>
+            </tr>
+            <tr>
+                <td>食事記録 (S-07)</td>
+                <td>食事内容・カロリー・写真</td>
+                <td>Creator → CRM</td>
+                <td>即時</td>
+            </tr>
+            <tr>
+                <td>個人トレーニング (S-08)</td>
+                <td>種目・時間・強度</td>
+                <td>Creator → CRM</td>
+                <td>即時</td>
+            </tr>
+            <tr>
+                <td>レポート一覧 (S-10)</td>
+                <td>各種サマリーデータ</td>
+                <td>CRM → Creator</td>
+                <td>リアルタイム</td>
+            </tr>
+            <tr>
+                <td>トレーニング履歴 (S-11)</td>
+                <td>トレーニング実施記録</td>
+                <td>CRM → Creator</td>
+                <td>リアルタイム</td>
+            </tr>
+            <tr>
+                <td>整体履歴 (S-12)</td>
+                <td>整体実施記録</td>
+                <td>CRM → Creator</td>
+                <td>リアルタイム</td>
+            </tr>
+            <tr>
+                <td>Inbodyレポート (S-13)</td>
+                <td>Inbody測定データ</td>
+                <td>CRM → Creator</td>
+                <td>リアルタイム</td>
+            </tr>
+            <tr>
+                <td>食事履歴 (S-14)</td>
+                <td>食事記録データ</td>
+                <td>CRM → Creator</td>
+                <td>リアルタイム</td>
+            </tr>
+            <tr>
+                <td>体調変化グラフ (S-15)</td>
+                <td>体調記録データ</td>
+                <td>CRM → Creator</td>
+                <td>リアルタイム</td>
+            </tr>
+        </table>
+        
+        <h3>7.2 対応するCRMオブジェクト</h3>
+        <table>
+            <tr>
+                <th>アプリ画面</th>
+                <th>CRMオブジェクト</th>
+                <th>主な項目</th>
+            </tr>
+            <tr>
+                <td>予約管理 (S-02〜S-05)</td>
+                <td>予約 (Appointments)</td>
+                <td>予約日時、メニュー、担当者、ステータス</td>
+            </tr>
+            <tr>
+                <td>体調記録 (S-06)</td>
+                <td>体調記録 (Health Records)</td>
+                <td>記録日、体重、体調、睡眠時間、メモ</td>
+            </tr>
+            <tr>
+                <td>食事記録 (S-07)</td>
+                <td>食事記録 (Meal Records)</td>
+                <td>記録日時、食事タイプ、内容、カロリー、写真</td>
+            </tr>
+            <tr>
+                <td>個人トレーニング (S-08)</td>
+                <td>個人トレーニング記録 (Personal Training Records)</td>
+                <td>記録日、種目、実施時間、強度、メモ</td>
+            </tr>
+            <tr>
+                <td>カウンセリング (S-09)</td>
+                <td>カウンセリング (Counseling)</td>
+                <td>目標、運動経験、既往歴、要望</td>
+            </tr>
+            <tr>
+                <td>トレーニング履歴 (S-11)</td>
+                <td>トレーニング実施記録 (Training Sessions)</td>
+                <td>実施日、メニュー、重量・回数、コメント</td>
+            </tr>
+            <tr>
+                <td>整体履歴 (S-12)</td>
+                <td>整体実施記録 (Bodywork Sessions)</td>
+                <td>実施日、施術内容、症状、改善度</td>
+            </tr>
+            <tr>
+                <td>Inbodyレポート (S-13)</td>
+                <td>Inbodyデータ (Inbody Data)</td>
+                <td>測定日、体重、体脂肪率、骨格筋量、BMI</td>
+            </tr>
+            <tr>
+                <td>プロフィール (S-16)</td>
+                <td>顧客 (Contacts)</td>
+                <td>顧客名、メール、会員番号、契約プラン</td>
+            </tr>
+        </table>
+
+        <h2>🔐 8. セキュリティとプライバシー</h2>
+        
+        <h3>8.1 認証・認可</h3>
+        <ul>
+            <li><strong>ログイン認証：</strong>メールアドレス・パスワードによる認証</li>
+            <li><strong>セッション管理：</strong>30日間有効（自動ログアウトなし）</li>
+            <li><strong>パスワードポリシー：</strong>最小8文字、英数字混在推奨</li>
+            <li><strong>アクセス制御：</strong>顧客は自分のデータのみ閲覧・編集可能</li>
+        </ul>
+        
+        <h3>8.2 データ保護</h3>
+        <ul>
+            <li><strong>通信暗号化：</strong>HTTPS通信のみ</li>
+            <li><strong>個人情報：</strong>CRM側で暗号化保存</li>
+            <li><strong>ログ管理：</strong>アクセスログ・操作ログをCRMで記録</li>
+        </ul>
+        
+        <h3>8.3 プライバシー配慮</h3>
+        <ul>
+            <li>体調記録・Inbodyデータなどの機微情報は本人のみ閲覧可能</li>
+            <li>トレーニング・整体履歴は担当トレーナーのみ閲覧可能</li>
+            <li>利用規約・プライバシーポリシーをアプリ内で常時確認可能</li>
+        </ul>
+
+        <h2>📱 9. レスポンシブ対応</h2>
+        
+        <h3>9.1 対応デバイス</h3>
+        <table>
+            <tr>
+                <th>デバイス</th>
+                <th>画面サイズ</th>
+                <th>対応レベル</th>
+            </tr>
+            <tr>
+                <td>スマートフォン（縦）</td>
+                <td>375px 〜 430px</td>
+                <td>完全対応（メイン）</td>
+            </tr>
+            <tr>
+                <td>スマートフォン（横）</td>
+                <td>667px 〜 932px</td>
+                <td>基本対応</td>
+            </tr>
+            <tr>
+                <td>タブレット</td>
+                <td>768px 〜 1024px</td>
+                <td>基本対応</td>
+            </tr>
+            <tr>
+                <td>デスクトップ</td>
+                <td>1024px 〜</td>
+                <td>参考対応</td>
+            </tr>
+        </table>
+        
+        <h3>9.2 レスポンシブ対応方針</h3>
+        <ul>
+            <li><strong>モバイルファースト：</strong>スマートフォン縦向きを基準に設計</li>
+            <li><strong>タップエリア：</strong>最小44×44pxを確保（Appleガイドライン準拠）</li>
+            <li><strong>フォントサイズ：</strong>本文最小14px、見出し18px以上</li>
+            <li><strong>余白：</strong>画面端から最小15pxの余白を確保</li>
+        </ul>
+
+        <h2>🚀 10. 実装優先順位</h2>
+        
+        <h3>フェーズ1：最重要機能（MVP）</h3>
+        <div class="requirement">
+            <strong>リリース目標：1ヶ月</strong>
+            <ul>
+                <li>S-01: ログイン画面</li>
+                <li>S-02: ホーム画面（予約メイン） - カレンダー・メニュー選択・時間帯選択</li>
+                <li>S-04: 予約確認画面</li>
+                <li>S-05: 予約詳細画面</li>
+                <li>S-03: 予約一覧画面</li>
+                <li>S-10: レポート一覧画面（簡易版）</li>
+                <li>S-16: プロフィール画面（基本機能のみ）</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>このフェーズで実現する価値：</strong>顧客がスマホから簡単に予約でき、予約管理ができる</p>
+        </div>
+        
+        <h3>フェーズ2：記録・レポート機能</h3>
+        <div class="requirement">
+            <strong>リリース目標：2ヶ月</strong>
+            <ul>
+                <li>S-06: 体調記録入力画面</li>
+                <li>S-07: 食事記録入力画面</li>
+                <li>S-08: 個人トレーニング入力画面</li>
+                <li>S-11: トレーニング履歴画面</li>
+                <li>S-12: 整体履歴画面</li>
+                <li>S-13: Inbodyレポート画面</li>
+                <li>S-14: 食事履歴画面</li>
+                <li>S-15: 体調変化グラフ画面</li>
+                <li>S-10: レポート一覧画面（完全版）</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>このフェーズで実現する価値：</strong>顧客が自分の進捗を可視化でき、モチベーション向上。記録習慣の形成</p>
+        </div>
+        
+        <h3>フェーズ3：高度な機能</h3>
+        <div class="requirement">
+            <strong>リリース目標：3ヶ月</strong>
+            <ul>
+                <li>S-09: カウンセリングシート画面</li>
+                <li>通知機能（プッシュ通知）- 予約リマインダー、記録促進</li>
+                <li>プロフィール画像アップロード</li>
+                <li>レポート画面の高度な分析機能（PFCバランス、週間レポートなど）</li>
+                <li>食事記録の自動カロリー推定機能（AI活用）</li>
+                <li>よく使うメニュー・トレーニングのテンプレート機能</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>このフェーズで実現する価値：</strong>顧客体験のさらなる向上と継続率アップ、AI活用による入力の効率化</p>
+        </div>
+
+        <h2>✅ 11. 次のアクションステップ</h2>
+        
+        <div class="note">
+            <h4>UI設計書レビュー後の推奨ステップ：</h4>
+            <ol>
+                <li><strong>デザインモックアップ作成：</strong>FigmaやAdobe XDで詳細なビジュアルデザインを作成</li>
+                <li><strong>ユーザビリティテスト：</strong>紙プロトタイプまたは画面遷移図で実際の顧客に操作してもらい、フィードバック収集</li>
+                <li><strong>Zoho Creator実装開始：</strong>フェーズ1から順次開発</li>
+                <li><strong>CRMデータ構造確認：</strong>このUI設計に必要なデータ項目がCRM側で準備されているか確認</li>
+                <li><strong>テストデータ作成：</strong>開発・テスト用のダミーデータを準備</li>
+            </ol>
+        </div>
+
+        <h2>📞 12. お問い合わせ</h2>
+        <p>本UI設計書に関するご質問・ご相談は以下までお願いいたします：</p>
+        <ul>
+            <li><strong>プロジェクトオーナー：</strong>佐伯様</li>
+            <li><strong>構築・実装者：</strong>渡久地様</li>
+            <li><strong>相談役：</strong>齋藤様</li>
+        </ul>
+
+        <div style="margin-top: 50px; padding: 30px; background: #000; color: white; border-radius: 8px; text-align: center;">
+            <h3 style="margin-bottom: 15px; color: white;">🎉 EIGHT 顧客向けアプリ UI設計書</h3>
+            <p style="color: #999;">Version 3.0（全16画面対応・記録機能拡充版） | 2025年11月7日</p>
+            <p style="margin-top: 20px; font-style: italic; color: #ccc;">"予約から記録、レポートまで。顧客の健康習慣を総合サポート"</p>
+        </div>
+    </div>
+</body>
+</html>
